@@ -1,1 +1,92 @@
-<File><Version>2.1</Version><Variables /><Flows><MainFlow /><ErrorHandlerFlow /><DisconnectHandlerFlow /></Flows></File>
+<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Version>2.1</Version>
+  <Variables>
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Variable>
+        <Name>CallbackLoopTimeout</Name>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+        <HelpText />
+      </Variable>
+      <Variable>
+        <Name>ExtensionIsBusyResult</Name>
+        <InitialValue>true</InitialValue>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+        <HelpText />
+      </Variable>
+      <Variable>
+        <Name>GlobalCallbackKey</Name>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+        <HelpText />
+      </Variable>
+    </ArrayOfVariable>
+  </Variables>
+  <Flows>
+    <MainFlow>
+      <ns0:MainFlow Description="Callflow execution path." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.6.53.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:MenuComponent AcceptDtmfInput="True" IsValidOption_Star="False" Timeout="10" x:Name="menuAttendant" SubsequentPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;MENU.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" InvalidDigitPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; /&gt;" IsValidOption_8="False" IsValidOption_9="False" IsValidOption_Pound="False" InitialPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;INTRO.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;MENU.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" TimeoutPromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; /&gt;" IsValidOption_3="False" IsValidOption_0="False" IsValidOption_1="True" IsValidOption_6="False" IsValidOption_7="False" IsValidOption_4="False" IsValidOption_5="False" IsValidOption_2="False" DebugModeActive="False" MaxRetryCount="3">
+          <ns0:MenuComponentBranch Option="Option1" Description="Execution path when the specified option is selected by the user." FriendlyName="" DebugModeActive="False" x:Name="menuComponentBranch1">
+            <ns0:VariableAssignmentComponent VariableName="project$.ExtensionWaiting" DebugModeActive="False" Expression="session.ani" x:Name="AssignExtensionWaiting" />
+            <ns0:VariableAssignmentComponent VariableName="project$.ExtensionBusy" DebugModeActive="False" Expression="session.transferingExtension" x:Name="AssignExtensionBusy" />
+            <ns0:VariableAssignmentComponent VariableName="callflow$.GlobalCallbackKey" DebugModeActive="False" Expression="CONCATENATE(&quot;CALLBACK_&quot;,project$.ExtensionWaiting,&quot;_&quot;,project$.ExtensionBusy)" x:Name="AssignGlobalCallbackKey" />
+            <ns0:TcxGetGlobalPropertyComponent PropertyName="callflow$.GlobalCallbackKey" DebugModeActive="False" x:Name="GetGlobalCallbackListener" />
+            <ns0:ConditionalComponent Description="Check if the global property has been set for the current callback combination" DebugModeActive="False" x:Name="CheckGlobalProperty">
+              <ns0:ConditionalComponentBranch Condition="EQUAL(&quot;True&quot;,GetGlobalCallbackListener.PropertyValue)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="CallbackRegistered">
+                <ns0:PromptPlaybackComponent AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;OK.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PromptOK" />
+                <ns0:DisconnectCallComponent x:Name="DisconnectCall1" DebugModeActive="False" />
+              </ns0:ConditionalComponentBranch>
+              <ns0:ConditionalComponentBranch Condition="" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="CallbackNotRegistered">
+                <ns0:VariableAssignmentComponent VariableName="project$.DoCallbackOnDisconnect" DebugModeActive="False" Expression="true" x:Name="DoCallbackOnDisconnect" />
+                <ns0:TcxSetGlobalPropertyComponent PropertyValue="&quot;True&quot;" PropertyName="callflow$.GlobalCallbackKey" DebugModeActive="False" x:Name="SetGlobalCallbackListener" />
+                <ns0:PromptPlaybackComponent AcceptDtmfInput="True" DebugModeActive="False" PromptList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfPrompt xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Prompt xsi:type=&quot;AudioFilePrompt&quot;&gt;&lt;AudioFileName&gt;CALLBACKVERIFY.wav&lt;/AudioFileName&gt;&lt;/Prompt&gt;&lt;/ArrayOfPrompt&gt;" x:Name="PromptVerifyCallback" />
+                <ns0:DisconnectCallComponent x:Name="DisconnectCall" DebugModeActive="False" />
+              </ns0:ConditionalComponentBranch>
+            </ns0:ConditionalComponent>
+          </ns0:MenuComponentBranch>
+          <ns0:MenuComponentBranch Option="TimeoutOrInvalidOption" Description="Execution path when the specified option is selected by the user." FriendlyName="" DebugModeActive="False" x:Name="menuComponentBranch3" />
+        </ns0:MenuComponent>
+      </ns0:MainFlow>
+    </MainFlow>
+    <ErrorHandlerFlow>
+      <ns0:ErrorHandlerFlow Description="Execution path when an error ocurrs." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.6.53.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:TcxGetGlobalPropertyComponent PropertyName="&quot;PBXERRORMAIL&quot;" DebugModeActive="False" x:Name="GetAdminEmail" />
+        <ns0:EMailSenderComponent Port="25" UserName="" Subject="CONCATENATE(&quot;Error triggered within &quot;,session.dnis)" x:Name="EmailOnError" Priority="Normal" Password="" EnableSSL="false" From="" IsBodyHtml="False" UseServerSettings="True" AttachmentList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfMailAttachment xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; /&gt;" IgnoreMissingAttachments="False" CC="" BCC="" Server="" DebugModeActive="False" To="GetAdminEmail.PropertyValue" Body="&quot;FIRE *exclamation mark*\nCheck the 3CX log for more information.&quot;" />
+      </ns0:ErrorHandlerFlow>
+    </ErrorHandlerFlow>
+    <DisconnectHandlerFlow>
+      <ns0:DisconnectHandlerFlow Description="Execution path since the call gets disconnected." DebugModeActive="False" x:Name="Main" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:TCX.CFD.Classes.Components;Assembly=3CX Call Flow Designer, Version=16.6.53.0, Culture=neutral, PublicKeyToken=7cb95a1a133e706e">
+        <ns0:ConditionalComponent DebugModeActive="False" x:Name="IfDoCallback">
+          <ns0:ConditionalComponentBranch Condition="project$.DoCallbackOnDisconnect" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="CallbackProcedure">
+            <ns0:ExecuteCSharpCodeComponent ReturnsValue="True" Code="return System.DateTime.Now + System.TimeSpan.FromHours(4);" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfScriptParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; /&gt;" MethodName="CalculateLoopTimeout" DebugModeActive="False" x:Name="CalculateLoopTimeout" />
+            <ns0:VariableAssignmentComponent VariableName="callflow$.CallbackLoopTimeout" DebugModeActive="False" Expression="CalculateLoopTimeout.ReturnValue" x:Name="AssignLoopTimeout" />
+            <ns0:LoopComponent Condition="LESS_THAN(NOW(),callflow$.CallbackLoopTimeout)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="LoopUntilTimeout">
+              <ns0:LoopComponent Condition="EQUAL(callflow$.ExtensionIsBusyResult,true)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="LoopUntilFree">
+                <ns0:ConditionalComponent DebugModeActive="False" x:Name="BreakIfTimeout">
+                  <ns0:ConditionalComponentBranch Condition="GREAT_THAN(NOW(),callflow$.CallbackLoopTimeout)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="Timeout">
+                    <ns0:TcxSetGlobalPropertyComponent PropertyValue="&quot;False&quot;" PropertyName="callflow$.GlobalCallbackKey" DebugModeActive="False" x:Name="SetGlobalCallbackKey3" />
+                    <ns0:ExitCallflowComponent x:Name="ExitCallflow2" DebugModeActive="False" />
+                  </ns0:ConditionalComponentBranch>
+                </ns0:ConditionalComponent>
+                <ns0:ExecuteCSharpCodeComponent ReturnsValue="False" Code="var jitter = new System.Random().Next(1,5);&#xD;&#xA;// Jitter is a poor mans implementation of preventing concurrent call issues&#xD;&#xA;var delay = System.TimeSpan.FromSeconds(1) + System.TimeSpan.FromSeconds(jitter);&#xD;&#xA;Task.Delay(delay).Wait();" ParameterList="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;ArrayOfScriptParameter xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; /&gt;" MethodName="CodeWait" DebugModeActive="False" x:Name="CodeWait" />
+                <ns0:TcxGetExtensionStatusComponent Extension="project$.ExtensionBusy" DebugModeActive="False" x:Name="GetBusyExtensionStatus" />
+                <ns0:TcxGetExtensionStatusComponent Extension="project$.ExtensionWaiting" DebugModeActive="False" x:Name="GetWaitingExtensionStatus" />
+                <ns0:VariableAssignmentComponent VariableName="callflow$.ExtensionIsBusyResult" DebugModeActive="False" Expression="OR(GetBusyExtensionStatus.IsInCall,NOT_EQUAL(GetBusyExtensionStatus.CurrentProfileName,&quot;Available&quot;),GetWaitingExtensionStatus.IsInCall,NOT_EQUAL(GetWaitingExtensionStatus.CurrentProfileName,&quot;Available&quot;))" x:Name="AssignIsBusyResult" />
+              </ns0:LoopComponent>
+              <ns0:MakeCallComponent Origin="project$.ExtensionWaiting" DebugModeActive="False" Timeout="15" Destination="project$.ExtensionBusy" x:Name="ConnectExtensions" />
+              <ns0:ConditionalComponent DebugModeActive="False" x:Name="TestConnected">
+                <ns0:ConditionalComponentBranch Condition="ConnectExtensions.Result" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="Connected">
+                  <ns0:TcxSetGlobalPropertyComponent PropertyValue="&quot;False&quot;" PropertyName="callflow$.GlobalCallbackKey" DebugModeActive="False" x:Name="SetGlobalCallbackKey2" />
+                  <ns0:ExitCallflowComponent x:Name="ExitCallflow1" DebugModeActive="False" />
+                </ns0:ConditionalComponentBranch>
+              </ns0:ConditionalComponent>
+            </ns0:LoopComponent>
+          </ns0:ConditionalComponentBranch>
+        </ns0:ConditionalComponent>
+        <ns0:TcxSetGlobalPropertyComponent PropertyValue="&quot;False&quot;" PropertyName="callflow$.GlobalCallbackKey" DebugModeActive="False" x:Name="SetGlobalCallbackKey1" />
+      </ns0:DisconnectHandlerFlow>
+    </DisconnectHandlerFlow>
+  </Flows>
+</File>

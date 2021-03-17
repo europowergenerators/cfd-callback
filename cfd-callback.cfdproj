@@ -5,16 +5,35 @@
     <File path="Main.flow" type="callflow" />
   </Files>
   <Variables>
-    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+    <ArrayOfVariable xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <Variable>
+        <Name>ExtensionBusy</Name>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+        <HelpText />
+      </Variable>
+      <Variable>
+        <Name>ExtensionWaiting</Name>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+        <HelpText />
+      </Variable>
+      <Variable>
+        <Name>DoCallbackOnDisconnect</Name>
+        <InitialValue>false</InitialValue>
+        <ShowScopeProperty>false</ShowScopeProperty>
+        <DebuggerVisible>true</DebuggerVisible>
+        <HelpText />
+      </Variable>
+    </ArrayOfVariable>
   </Variables>
   <DebugBuildSuccessful>False</DebugBuildSuccessful>
-  <ReleaseBuildSuccessful>False</ReleaseBuildSuccessful>
+  <ReleaseBuildSuccessful>True</ReleaseBuildSuccessful>
   <DebugBuildNumber>0</DebugBuildNumber>
-  <ReleaseBuildNumber>0</ReleaseBuildNumber>
+  <ReleaseBuildNumber>21</ReleaseBuildNumber>
   <ChangedSinceLastDebugBuild>True</ChangedSinceLastDebugBuild>
-  <DoNotAskForExtension>False</DoNotAskForExtension>
-  <Extension>
-  </Extension>
+  <DoNotAskForExtension>True</DoNotAskForExtension>
+  <Extension>6667</Extension>
   <OnlineServicesTextToSpeechEngine>None</OnlineServicesTextToSpeechEngine>
   <OnlineServicesSpeechToTextEngine>None</OnlineServicesSpeechToTextEngine>
   <AmazonClientID>
