@@ -6,17 +6,17 @@ WARNING; This application is not robustly handling concurrent calls!
 
 ## Installation
 
-#. Build the project with the Call Flow Designer application
-#. Upload the zip file to your 3CX server
+1. Build the project with the Call Flow Designer application
+1. Upload the zip file to your 3CX server
 
 ## Configuration
 
 The project builds with an extension number attached! You can use this extension within your call routing.
 
-#. Setup Forwarding rules to forward to your Call Flow App
-    #. Choose "Forward to number"
-    #. Fill in the extension number of your Call Flow App
-    #. The above should work as if you forward to internal extension
+1. Setup Forwarding rules to forward to your Call Flow App
+    1. Choose "Forward to number"
+    1. Fill in the extension number of your Call Flow App
+    1. The above should work as if you forward to internal extension
 
 ## Error handling
 
