@@ -66,7 +66,7 @@
               <ns0:LoopComponent Condition="EQUAL(callflow$.ExtensionIsBusyResult,true)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="LoopUntilFree">
                 <ns0:ConditionalComponent DebugModeActive="False" x:Name="BreakIfTimeout">
                   <ns0:ConditionalComponentBranch Condition="GREAT_THAN(NOW(),callflow$.CallbackLoopTimeout)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="Timeout">
-                    <ns0:TcxSetGlobalPropertyComponent PropertyValue="&quot;False&quot;" PropertyName="callflow$.GlobalCallbackKey" DebugModeActive="False" x:Name="SetGlobalCallbackKey3" />
+                    <ns0:TcxSetGlobalPropertyComponent PropertyValue="&quot;False&quot;" PropertyName="callflow$.GlobalCallbackKey" DebugModeActive="False" x:Name="GlobalCleanup1" />
                     <ns0:ExitCallflowComponent x:Name="ExitCallflow2" DebugModeActive="False" />
                   </ns0:ConditionalComponentBranch>
                 </ns0:ConditionalComponent>
@@ -78,14 +78,14 @@
               <ns0:MakeCallComponent Origin="project$.ExtensionWaiting" DebugModeActive="False" Timeout="15" Destination="project$.ExtensionBusy" x:Name="ConnectExtensions" />
               <ns0:ConditionalComponent DebugModeActive="False" x:Name="TestConnected">
                 <ns0:ConditionalComponentBranch Condition="ConnectExtensions.Result" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="Connected">
-                  <ns0:TcxSetGlobalPropertyComponent PropertyValue="&quot;False&quot;" PropertyName="callflow$.GlobalCallbackKey" DebugModeActive="False" x:Name="SetGlobalCallbackKey2" />
+                  <ns0:TcxSetGlobalPropertyComponent PropertyValue="&quot;False&quot;" PropertyName="callflow$.GlobalCallbackKey" DebugModeActive="False" x:Name="GlobalCleanup2" />
                   <ns0:ExitCallflowComponent x:Name="ExitCallflow1" DebugModeActive="False" />
                 </ns0:ConditionalComponentBranch>
               </ns0:ConditionalComponent>
             </ns0:LoopComponent>
           </ns0:ConditionalComponentBranch>
         </ns0:ConditionalComponent>
-        <ns0:TcxSetGlobalPropertyComponent PropertyValue="&quot;False&quot;" PropertyName="callflow$.GlobalCallbackKey" DebugModeActive="False" x:Name="SetGlobalCallbackKey1" />
+        <ns0:TcxSetGlobalPropertyComponent PropertyValue="&quot;False&quot;" PropertyName="callflow$.GlobalCallbackKey" DebugModeActive="False" x:Name="GlobalCleanup3" />
       </ns0:DisconnectHandlerFlow>
     </DisconnectHandlerFlow>
   </Flows>
