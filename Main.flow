@@ -39,6 +39,11 @@
             <ns0:VariableAssignmentComponent VariableName="project$.ExtensionWaiting" DebugModeActive="False" Expression="session.ani" x:Name="AssignExtensionWaiting" />
             <ns0:VariableAssignmentComponent VariableName="project$.ExtensionBusy" DebugModeActive="False" Expression="session.transferingExtension" x:Name="AssignExtensionBusy" />
             <ns0:VariableAssignmentComponent VariableName="callflow$.GlobalCallbackKey" DebugModeActive="False" Expression="CONCATENATE(&quot;CALLBACK_&quot;,project$.ExtensionWaiting,&quot;_&quot;,project$.ExtensionBusy)" x:Name="AssignGlobalCallbackKey" />
+            <ns0:ConditionalComponent DebugModeActive="False" x:Name="CheckPrerequisites">
+              <ns0:ConditionalComponentBranch Condition="GREAT_THAN_OR_EQUAL(0,LEN(project$.ExtensionBusy))" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="whenBusyExtensionEmpty">
+                <ns0:ExitCallflowComponent x:Name="ExitCallflow1" DebugModeActive="False" />
+              </ns0:ConditionalComponentBranch>
+            </ns0:ConditionalComponent>
             <ns0:TcxGetGlobalPropertyComponent PropertyName="callflow$.GlobalCallbackKey" DebugModeActive="False" x:Name="GetGlobalCallbackListener" />
             <ns0:ConditionalComponent Description="Check if the global property has been set for the current callback combination" DebugModeActive="False" x:Name="CheckGlobalProperty">
               <ns0:ConditionalComponentBranch Condition="EQUAL(&quot;True&quot;,GetGlobalCallbackListener.PropertyValue)" Description="Execution path when the specified condition is met." DebugModeActive="False" x:Name="CallbackRegistered">
