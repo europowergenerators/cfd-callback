@@ -1,3 +1,7 @@
+> [!NOTE]
+> This repository was archived because the little functional use wasn't worth the administration overhead.  
+> We removed the callback app in our 3CX installation and the server automatically replaces this app with "End Call" in the forwarding rules. "End call" aligns with our default policy; ending the call after ~20 seconds of not picking up a ringing phone.
+
 # 3CX Callflow app; CALLBACK
 
 Call flow app for monitoring extensions and linking them both when they become available.
